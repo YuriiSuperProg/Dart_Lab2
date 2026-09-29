@@ -1,5 +1,11 @@
 import 'package:lab2_todo/todo.dart';
 import 'dart:io';
+import 'package:ansicolor/ansicolor.dart';
+
+final AnsiPen greenPen = AnsiPen()..green();
+final AnsiPen redPen = AnsiPen()..red();
+final AnsiPen bluePen = AnsiPen()..blue();
+final AnsiPen yellowPen = AnsiPen()..yellow();
 void main() {
   // Todo task1 = Todo(id: 1, title: 'Купить продукты');
   // Todo task2 = Todo(id: 2, title: 'Сделать зарядку');
@@ -30,7 +36,7 @@ void main() {
 
 void printMenu() {
   print("");
-  print("ToDo список");
+  print(yellowPen(('ToDo список')));
   print("add    - добавить задачу");
   print("list   - показать все задачи");
   print("done   - отметить выполненной");
@@ -42,12 +48,12 @@ void addTodo(List<Todo> todos){
   stdout.write("Название задачи: ");
   String? input = stdin.readLineSync();
   if (input == null || input.trim().isEmpty){
-    print("Ошибка: название не может быть пустым");
+    print(redPen(("Ошибка: название не может быть пустым")));
     return;
   }
   //int newId = todos.isEmpty ? 1 : todos.last.id + 1;
   todos.add(Todo(title: input.trim()));
-  print("Задача добавлена");
+  print(greenPen(("Задача добавлена")));
 }
 
 void listTodos(List<Todo> todos){
@@ -69,7 +75,7 @@ void completeTodo(List<Todo> todos){
 
   int? id = int.tryParse(input.trim());
   if (id == null){
-    print("Ошибка: введите число");
+    print(redPen(("Ошибка: введите число")));
     return;
   }
   for (var todo in todos){
